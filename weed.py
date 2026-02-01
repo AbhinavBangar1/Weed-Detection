@@ -1,3 +1,6 @@
+import cv2 as cv
+import time as t
+
 class Weed :
     count = 0
     # {key : ID , value : [confidence , last_timestamp , bb =[] , features]}
@@ -27,15 +30,17 @@ class Weed :
             roi = frame[y1:y2, x1:x2]
             if roi.size == 0:
                 continue
-
-
+            feature = cv.goodFeaturesToTrack(roi , 50 , 0.01 , 10)
+            features=[]
+            for i in feature :
+                a,b = i.ravel()
+                features.append((a,b))
 
         # Get confidence
-        conf = box.conf
+        confidence = box.conf
 
-
-        # Get last Timestamps
-        
+        # Get Timestamps
+        timeStamp = t.time()
         pass
 
     def getfeatures(self):
@@ -46,5 +51,5 @@ class Weed :
     def trackFeatures(self):
         pass
 
-    def validateBB(self):
+    def validateBB(self , ):
         pass
